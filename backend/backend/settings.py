@@ -89,10 +89,10 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'todo_db',
-        'USER': 'todo_user',
-        'PASSWORD': 'todo_pass',
-        'HOST': 'db',  # same as the service name in docker-compose.yml
+        'NAME': 'todo',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'host.docker.internal',  # same as the service name in docker-compose.yml
         'PORT': '5432',
     }
 }
