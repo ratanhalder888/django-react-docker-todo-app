@@ -1,6 +1,6 @@
 # frontend/Dockerfile
 
-FROM node:18-alpine
+FROM node:18.19.1-alpine AS build
 
 WORKDIR /app
 
@@ -13,8 +13,14 @@ RUN npm install
 # Copy the rest of the app
 COPY . .
 
+# Build the React app
+RUN npm run build
+
+# Install serve to serve static files
+RUN npm install -g serve
+
 # Expose React port
 EXPOSE 3000
 
 # Start the React app
-CMD ["npm", "start"]
+CMD ["serve", "-s", "build", "-l", "3000"]

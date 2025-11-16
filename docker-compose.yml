@@ -3,28 +3,22 @@
 services:
   backend:
     build: ./backend
-    container_name: django_backend
+    container_name: todo1_backend
     ports:
-      - "8000:8000"
-    volumes:
-      - ./backend:/app
-    # env_file:
-    #   - ./backend/.django-env
-    # depends_on:
-    #   - db
+      - "8000:8000" # expose to host
+    env_file:
+      - ./backend/.env
+    restart: unless-stopped
 
 
   frontend:
     build: ./frontend
-    container_name: react_frontend
+    container_name: todo1_frontend
     ports:
-      - "3000:3000"
-    volumes:
-      - ./frontend:/app
-    environment:
-      - CHOKIDAR_USEPOLLING=true
+      - "3000:3000" # expose to host
     depends_on:
       - backend
+    restart: unless-stopped
 
 
   # db:
