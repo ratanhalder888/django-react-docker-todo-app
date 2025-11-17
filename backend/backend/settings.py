@@ -30,7 +30,8 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.getenv("DEBUG", default=0))
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS","127.0.0.1").split(",")
+# ALLOWED_HOSTS from environment variable
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS","localhost").split(",")
 
 # Application definition
 
@@ -95,7 +96,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.getenv("DB_NAME"),
         'USER': os.getenv("DB_USER"),
-        'PASSWORD': os.getenv("PASSWORD"),
+        'PASSWORD': os.getenv("DB_PASSWORD"),
         'HOST': os.getenv("DB_HOST"),  
         'PORT': os.getenv("DB_PORT"),
     }
@@ -137,7 +138,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# If you have static files in your app directories
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+] if os.path.exists(os.path.join(BASE_DIR, 'static')) else []
+
+
+# Media files (if you use file uploads)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -147,9 +158,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # CORS settings (install django-cors-headers if not already)
 CORS_ALLOWED_ORIGINS = [
-    "https://todo1.ratandev.xyz",
     "http://todo1.ratandev.xyz",
+    "https://todo1.ratandev.xyz",
+    "http://57.131.13.252",
+    "http://localhost:3000",
 ]
 # Or for development:
 # CORS_ALLOW_ALL_ORIGINS = True
+
+# CSRF Settings (if needed)
+CSRF_TRUSTED_ORIGINS = [
+    "http://todo1.ratandev.xyz",
+    "https://todo1.ratandev.xyz",
+]
 

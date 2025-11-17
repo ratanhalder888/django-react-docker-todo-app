@@ -11,7 +11,10 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
 RUN apt-get update && apt-get install -y \
-    gcc
+    gcc \
+    postgresql-client \
+    libpq-dev \
+    netcat 
 
 # Copy requirements (if you have one)
 COPY requirements.txt .
@@ -24,11 +27,20 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Collect static files
-# RUN python manage.py collectstatic --noinput || true
+RUN python manage.py collectstatic --noinput --clear || echo "No static files to collect"
+
+# Copy entrypoint script
+COPY entrypoint.sh /app/entrypoint.sh
+
+# Make the entrypoint script executable
+RUN chmod +x /app/entrypoint.sh
 
 # Expose port 8000 for Django
 EXPOSE 8000
 
 # Run migrations and start the server
 # CMD ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
-CMD ["gunicorn", "backend.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "3"]
+# CMD ["gunicorn", "backend.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "3"]
+
+# Use the entrypoint script to start the container
+CMD ["/app/entrypoint.sh"]
