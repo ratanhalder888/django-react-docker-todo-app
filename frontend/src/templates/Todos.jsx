@@ -7,7 +7,8 @@ export default function Todos() {
     const [inputValue, setInputValue] = useState('');
 
     // Get API URL from environment or use default
-    const API_BASE_URL = process.env.REACT_APP_API_URL || '/api/todos'; 
+    const API_BASE_URL = process.env.REACT_APP_API_URL; 
+    console.log(API_BASE_URL)
 
     useEffect(() => {
         fetchTasks();
@@ -15,7 +16,7 @@ export default function Todos() {
 
     const fetchTasks = async () => {
         try {
-            const response = await axios.get(`${API_BASE_URL}/`) 
+            const response = await axios.get(`${API_BASE_URL}/todos`)
             setTasks(response.data)
         } catch (error) {
             console.log('error', error);

@@ -27,7 +27,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Collect static files
-RUN python manage.py collectstatic --noinput --clear || echo "No static files to collect"
+# RUN python manage.py collectstatic --noinput --clear || echo "No static files to collect"
 
 # Copy entrypoint script
 COPY entrypoint.sh /app/entrypoint.sh
