@@ -157,18 +157,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # CORS settings (install django-cors-headers if not already)
-CORS_ALLOWED_ORIGINS = [
+CORS_ALLOWED_ORIGINS = [ 
     "http://todo1.ratandev.xyz",
     "https://todo1.ratandev.xyz",
-    "http://57.131.13.252",
-    "http://localhost:3000",
-]
+    "http://localhosot:3000"
+ ]
 # Or for development:
 # CORS_ALLOW_ALL_ORIGINS = True
 
 # CSRF Settings (if needed)
 CSRF_TRUSTED_ORIGINS = [
-    "http://todo1.ratandev.xyz",
-    "https://todo1.ratandev.xyz",
+        "http://todo1.ratandev.xyz",
+        "https://todo1.ratandev.xyz",
 ]
 

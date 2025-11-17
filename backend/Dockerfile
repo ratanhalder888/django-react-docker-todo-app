@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y \
     gcc \
     postgresql-client \
     libpq-dev \
-    netcat 
+    netcat-traditional
 
 # Copy requirements (if you have one)
 COPY requirements.txt .

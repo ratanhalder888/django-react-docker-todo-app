@@ -16,16 +16,16 @@ export default function Todos() {
 
     const fetchTasks = async () => {
         try {
-            const response = await axios.get(`${API_BASE_URL}/todos`)
+            const response = await axios.get(`${API_BASE_URL}todos/`)
             setTasks(response.data)
         } catch (error) {
-            console.log('error', error);
+            console.log('Get Error', error);
         }
     }
 
     const deleteTasks = async (taskId) => {
         try {
-            await axios.delete(`${API_BASE_URL}/${taskId}/delete/`);
+            await axios.delete(`${API_BASE_URL}todos/${taskId}/delete/`);
             const updatedTasks = tasks.filter(task => task.id !== taskId)
             setTasks(updatedTasks)
         } catch (error) {
@@ -36,7 +36,7 @@ export default function Todos() {
     const addTask = async () => {
         try {
             if (inputValue.trim() !== '') {
-                const response = await axios.post(`${API_BASE_URL}/add/`, {
+                const response = await axios.post(`${API_BASE_URL}todos/add/`, {
                     title: inputValue,
                     completed: false
                 });
@@ -52,7 +52,7 @@ export default function Todos() {
         try {
             const taskToUpdate = tasks.find(task => task.id === Number(taskId));
             if (taskToUpdate) {
-                const response = await axios.put(`${API_BASE_URL}/${taskId}/update/`, {
+                const response = await axios.put(`${API_BASE_URL}todos/${taskId}/update/`, {
                     completed: !taskToUpdate.completed
                 });
                 const updatedTasks = tasks.map(task =>
