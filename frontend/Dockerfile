@@ -8,10 +8,13 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install
+RUN npm install --registry=https://registry.npmmirror.com
 
 # Copy the rest of the app
 COPY . .
+
+# Set API URL for build time (CRA requires this)
+ENV REACT_APP_API_URL=http://localhost:8000/api/
 
 # Build the React app
 RUN npm run build
